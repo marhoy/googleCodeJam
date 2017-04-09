@@ -21,16 +21,26 @@ def quick_solution(N, K):
     return large, small
 
 
+def longdiv(divisor, divident):
+    quotient, remainder = divmod(divisor, divident)
+    return quotient, remainder/divident
+
+
+def ceil_log_2(number):
+    for i in range(len(EXP_TABLE)):
+        if number <= EXP_TABLE[i]:
+            break
+    return i
+
+
 def quicker_solution(N, K):
-    parts = math.ceil(math.log(K + 1, 2))
-    number = (N - K) / 2 ** parts
-    fraction = number - math.floor(number)
-    LOG.debug("Parts: %d, Number: %f", parts, number)
+    integer, fraction = longdiv(N - K, EXP_TABLE[ceil_log_2(K + 1)])
+    LOG.debug("Integer: %d, Fraction: %f", integer, fraction)
     if fraction >= 0.5:
-        large = math.ceil(number)
+        large = integer + 1
     else:
-        large = math.floor(number)
-    small = math.floor(number)
+        large = integer
+    small = integer
 
     return large, small
 
@@ -39,10 +49,12 @@ if __name__ == '__main__':
     num_cases = int(input())
     LOG.info('Number of cases %d', num_cases)
 
+    EXP_TABLE = [2 ** i for i in range(61)]
+
     for case in range(1, num_cases + 1):
         N, K = map(int, input().split())
         LOG.info('\n\nCase #%d: N stalls: %d, K people: %d', case, N, K)
 
         large, small = quicker_solution(N, K)
 
-        print("Case #{}: {:d} {:d}".format(case, large, small))
+        print("Case #{}: {} {}".format(case, large, small))
