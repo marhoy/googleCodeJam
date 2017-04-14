@@ -1,15 +1,15 @@
 import logging
 import math
 
-logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
+logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 LOG = logging.getLogger()
 
 
 def quick_solution(N, K):
     segments = [N]
     for k in range(K):
-        segments.sort(reverse=True)
-        largest = segments.pop(0)
+        largest = max(segments)
+        segments.remove(largest)
         new = (largest - 1)/2
         large = math.ceil(new)
         small = math.floor(new)
@@ -55,6 +55,6 @@ if __name__ == '__main__':
         N, K = map(int, input().split())
         LOG.info('\n\nCase #%d: N stalls: %d, K people: %d', case, N, K)
 
-        large, small = quicker_solution(N, K)
+        large, small = quick_solution(N, K)
 
         print("Case #{}: {} {}".format(case, large, small))
