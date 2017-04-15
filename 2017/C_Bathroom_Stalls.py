@@ -6,13 +6,13 @@ def longdiv(divisor, divident):
     return quotient, remainder/divident
 
 
-def find_next_2_ext(number):
+def find_next_2_exp(number):
     idx = bisect.bisect_left(EXP_TABLE, number)
     return EXP_TABLE[idx]
 
 
 def quicker_solution(n_stalls, k_people):
-    integer, fraction = longdiv(n_stalls - k_people, find_next_2_ext(k_people + 1))
+    integer, fraction = longdiv(n_stalls - k_people, find_next_2_exp(k_people + 1))
     min_dist = max_dist = integer
     if fraction >= 0.5:
         max_dist = integer + 1
