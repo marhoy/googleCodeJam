@@ -1,4 +1,27 @@
 import bisect
+from collections import defaultdict
+import math
+
+
+def google_solution(N, K):
+    S = {N}
+    C = defaultdict(lambda: 0, {N: 1})
+    P = 0
+    while True:
+        X = max(S)
+        X0 = math.ceil((X - 1)/2)
+        X1 = math.floor((X - 1)/2)
+        P += C[X]
+        print("X: {}, X0: {}, X1: {}\n\tP: {}".format(X, X0, X1, P))
+        if P >= K:
+            return X0, X1
+        else:
+            S.remove(X)
+            S.add(X0)
+            S.add(X1)
+            C[X0] += C[X]
+            C[X1] += C[X]
+        print("\tS: {}\n\tC: {}".format(S, C.items()))
 
 
 def longdiv(divisor, divident):
@@ -27,4 +50,6 @@ if __name__ == '__main__':
     for case in range(1, num_cases + 1):
         N, K = map(int, input().split())
         large, small = quicker_solution(N, K)
+        large2, small2 = google_solution(N, K)
         print("Case #{}: {} {}".format(case, large, small))
+        print("Case #{}: {} {}".format(case, large2, small2))
