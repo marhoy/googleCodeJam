@@ -11,8 +11,9 @@ def google_solution(N, K):
         X = max(S)
         X0 = math.ceil((X - 1)/2)
         X1 = math.floor((X - 1)/2)
-        P += C[X]
         print("P: {}\n\tX: {}, X0: {}, X1: {}".format(P, X, X0, X1))
+        print("\tS: {}\n\tC: {}".format(S, C.items()))
+        P += C[X]
         if P >= K:
             print("Number of iterations needed: {}".format(len(C)))
             return X0, X1
@@ -22,7 +23,7 @@ def google_solution(N, K):
             S.add(X1)
             C[X0] += C[X]
             C[X1] += C[X]
-        print("\tS: {}\n\tC: {}".format(S, C.items()))
+        print("\tAfter update:\n\tP: {}\n\tS: {}\n\tC: {}".format(P, S, C.items()))
 
 
 def longdiv(divisor, divident):
@@ -46,7 +47,7 @@ def quicker_solution(n_stalls, k_people):
 if __name__ == '__main__':
     num_cases = int(input())
 
-    EXP_TABLE = [2 ** i for i in range(61)]
+    EXP_TABLE = [2 ** i for i in range(62)]
 
     for case in range(1, num_cases + 1):
         N, K = map(int, input().split())
