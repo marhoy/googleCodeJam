@@ -12,8 +12,9 @@ def google_solution(N, K):
         X0 = math.ceil((X - 1)/2)
         X1 = math.floor((X - 1)/2)
         P += C[X]
-        print("X: {}, X0: {}, X1: {}\n\tP: {}".format(X, X0, X1, P))
+        print("P: {}\n\tX: {}, X0: {}, X1: {}".format(P, X, X0, X1))
         if P >= K:
+            print("Number of iterations needed: {}".format(len(C)))
             return X0, X1
         else:
             S.remove(X)
