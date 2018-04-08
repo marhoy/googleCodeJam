@@ -19,6 +19,7 @@ def getfloat():
 
 
 def roll_matrix(angle):
+    # Rotation around x-axis
     R = np.array([
         [1, 0, 0],
         [0, np.cos(angle), -np.sin(angle)],
@@ -28,6 +29,7 @@ def roll_matrix(angle):
 
 
 def pitch_matrix(angle):
+    # Rotation around y-axis
     R = np.array([
         [np.cos(angle), 0, np.sin(angle)],
         [0, 1, 0],
@@ -37,6 +39,7 @@ def pitch_matrix(angle):
 
 
 def yaw_matrix(angle):
+    # Rotation around z-axis
     R = np.array([
         [np.cos(angle), -np.sin(angle), 0],
         [np.sin(angle), np.cos(angle), 0],
@@ -56,19 +59,23 @@ def rotate_points(points, roll, pitch, yaw):
     return rotated_points
 
 
-def proj_area(corners):
-    #  plane = np.array([[1, 0, 0], [0, 0, 1]])
-    #  projected_corners = np.dot(corners, plane.T)
-    projected_corners = corners[:, :2]  # Simplify, since the plane is the y-plane
+def project_points(points):
+    # plane = np.array([[1, 0, 0], [0, 0, 1]])  # The xz-plane
+    # projected_corners = np.dot(corners, plane.T)
+    projected_points = points[:, [0, 2]]  # Simplify, since the plane is the xz-plane
+    return projected_points
+
+
+def hull_area(points):
     # Find area of convex hull
-    hull = scipy.spatial.ConvexHull(projected_corners)
+    hull = scipy.spatial.ConvexHull(points)
     return hull.volume
 
 
 def func_min(angles, corners, specified_area):
     # No need to rotate yaw, since we project onto y-plane and just ignore the z-coordinates
     rotated_corners = rotate_points(corners, angles[0], angles[1], 0)
-    area = proj_area(rotated_corners)
+    area = hull_area(project_points(rotated_corners))
     return abs(area - specified_area)
 
 

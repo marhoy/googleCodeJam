@@ -60,19 +60,30 @@ def rotate_points(points, roll, pitch, yaw):
     return rotated_points
 
 
-def proj_area(corners):
-    #  plane = np.array([[1, 0, 0], [0, 0, 1]])
-    #  projected_corners = np.dot(corners, plane.T)
-    projected_corners = corners[:, :2]  # Simplify, since the plane is the y-plane
-    # Find area of convex hull
-    hull = scipy.spatial.ConvexHull(projected_corners)
-    return hull.volume
+def project_points(points):
+    # plane = np.array([[1, 0, 0], [0, 0, 1]])  # The xz-plane
+    # projected_corners = np.dot(corners, plane.T)
+    projected_points = points[:, [0, 2]]  # Simplify, since the plane is the xz-plane
+    return projected_points
+
+
+def hull_area_without_scipy(points):
+    # This only works for a simple polygon where the points are ordered nicely
+    # https://en.wikipedia.org/wiki/Shoelace_formula
+    n = len(points)
+    area = 0.0
+    for i in range(n):
+        j = (i + 1) % n
+        area += points[i][0] * points[j][1]
+        area -= points[j][0] * points[i][1]
+    area = abs(area) / 2.0
+    return area
 
 
 def func_min(angles, corners, specified_area):
     # No need to rotate yaw, since we project onto y-plane and just ignore the z-coordinates
     rotated_corners = rotate_points(corners, angles[0], angles[1], 0)
-    area = proj_area(rotated_corners)
+    area = hull_area_without_scipy(project_points(rotated_corners))
     return abs(area - specified_area)
 
 
