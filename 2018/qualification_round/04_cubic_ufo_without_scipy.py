@@ -61,9 +61,9 @@ def rotate_points(points, roll, pitch, yaw):
 
 
 def project_points(points):
-    # plane = np.array([[1, 0, 0], [0, 0, 1]])  # The xz-plane
-    # projected_corners = np.dot(corners, plane.T)
-    projected_points = points[:, [0, 2]]  # Simplify, since the plane is the xz-plane
+    plane = [[1, 0], [0, 0], [0, 1]]  # The x- and z- unit vector, transposed
+    projected_points = matrix_mul(points, plane)
+    # projected_points = points[:, [0, 2]]  # Simplify, since the plane is the xz-plane
     return projected_points
 
 
