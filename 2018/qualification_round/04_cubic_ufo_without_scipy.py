@@ -9,6 +9,23 @@ LOG = logging.getLogger(__name__)
 # See https://en.wikipedia.org/wiki/Rotation_matrix#In_three_dimensions
 # For an explanation on rotation matrices
 
+ordered_corners = [
+    [-.5, +.5, -.5],
+    [+.5, +.5, -.5],
+    [+.5, +.5, +.5],
+    [+.5, -.5, +.5],
+    [-.5, -.5, +.5],
+    [-.5, -.5, -.5],
+    [+.5, -.5, -.5],
+    [-.5, +.5, +.5],
+]
+
+faces = [
+    [.5, 0, 0],
+    [0, .5, 0],
+    [0, 0, .5]
+]
+
 
 def getint():
     return int(input())
@@ -67,7 +84,7 @@ def project_points(points):
     return projected_points
 
 
-def hull_area_without_scipy(points):
+def hull_area(points):
     # This only works for a simple polygon where the points are ordered nicely
     # https://en.wikipedia.org/wiki/Shoelace_formula
     n = len(points)
@@ -80,35 +97,43 @@ def hull_area_without_scipy(points):
     return area
 
 
-def func_min(angles, corners, specified_area):
-    # No need to rotate yaw, since we project onto y-plane and just ignore the z-coordinates
-    rotated_corners = rotate_points(corners, angles[0], angles[1], 0)
-    area = hull_area_without_scipy(project_points(rotated_corners))
-    return abs(area - specified_area)
+def get_area(angle):
+    points = project_points(rotate_points(ordered_corners, angle, 0, 45 / 180 * math.pi))
+    return hull_area(points[:6])
+
+
+def binary_search(specified_area):
+    area_resolution = 1e-10
+    max_guesses = 100
+    left = .5 * math.atan(2 * math.sqrt(2))
+    right = .5 * math.pi
+    angle_resolution = (right - left) / 10
+
+    for guess in range(max_guesses):
+        middle = (left + right) / 2
+        area = get_area(middle)
+
+        if abs(area - specified_area) < area_resolution:
+            break
+        elif area < specified_area:
+            # Need to move the right boundary
+            while (get_area(middle - angle_resolution) > specified_area) or ((middle - angle_resolution) < left):
+                # Moving middle with resolution would take us to the other side of the optimum.
+                angle_resolution = angle_resolution / 10
+            right = middle - angle_resolution
+        elif area > specified_area:
+            # Need to move the left boundary
+            while (get_area(middle + angle_resolution) < specified_area) or ((middle + angle_resolution) > right):
+                # Moving middle with resolution would take us to the other side of the optimum.
+                angle_resolution = angle_resolution / 10
+            left = middle + angle_resolution
+    else:
+        LOG.error("Didn't find solution with requested presicion, after %d iterations", guess)
+
+    return middle
 
 
 def main():
-    corners = np.array([
-        [-.5, -.5, -.5],
-        [+.5, -.5, -.5],
-        [+.5, +.5, -.5],
-        [-.5, +.5, -.5],
-        [-.5, -.5, +.5],
-        [+.5, -.5, +.5],
-        [+.5, +.5, +.5],
-        [-.5, +.5, +.5],
-    ])
-
-    faces = np.array([
-        [.5, 0, 0],
-        [0, .5, 0],
-        [0, 0, .5]
-    ])
-
-    # Initial guess for roll and pitch
-    x0 = np.array([0, 0])
-    # x0 = np.array([90/180*np.pi, 90/180*np.pi])
-
     # Read in the number of cases
     cases = getint()
 
@@ -116,13 +141,12 @@ def main():
         # Read in the requested area
         requested_area = getfloat()
 
-        # Run a numeric optimization to find roll and pitch
-        result = scipy.optimize.minimize(func_min, x0, args=(corners, requested_area),
-                                         method='Nelder-Mead', options={'ftol': 1e-14})
-        roll, pitch = result.x
+        # Find the roll-angle that gives this area
+        # Keep pitch = 0 and yaw = 45
+        roll_angle = binary_search(requested_area)
 
         # Rotate the faces with the same angles
-        rotated_faces = rotate_points(faces, roll, pitch, 0)
+        rotated_faces = rotate_points(faces, roll_angle, 0, 45/180*math.pi)
 
         # Print resulting faces
         print("Case #{}:".format(case))
