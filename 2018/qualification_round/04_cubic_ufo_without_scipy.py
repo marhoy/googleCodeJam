@@ -97,7 +97,7 @@ def hull_area(points):
     return area
 
 
-def get_area(angle):
+def get_search_area(angle):
     points = project_points(rotate_points(ordered_corners, angle, 0, 45 / 180 * math.pi))
     return hull_area(points[:6])
 
@@ -111,19 +111,19 @@ def binary_search(specified_area):
 
     for guess in range(max_guesses):
         middle = (left + right) / 2
-        area = get_area(middle)
+        area = get_search_area(middle)
 
         if abs(area - specified_area) < area_resolution:
             break
         elif area < specified_area:
             # Need to move the right boundary
-            while (get_area(middle - angle_resolution) > specified_area) or ((middle - angle_resolution) < left):
+            while (get_search_area(middle - angle_resolution) > specified_area) or ((middle - angle_resolution) < left):
                 # Moving middle with resolution would take us to the other side of the optimum.
                 angle_resolution = angle_resolution / 10
             right = middle - angle_resolution
         elif area > specified_area:
             # Need to move the left boundary
-            while (get_area(middle + angle_resolution) < specified_area) or ((middle + angle_resolution) > right):
+            while (get_search_area(middle + angle_resolution) < specified_area) or ((middle + angle_resolution) > right):
                 # Moving middle with resolution would take us to the other side of the optimum.
                 angle_resolution = angle_resolution / 10
             left = middle + angle_resolution
