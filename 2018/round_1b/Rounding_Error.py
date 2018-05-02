@@ -4,7 +4,7 @@ import sys
 import math
 
 # Configure logging
-logging.basicConfig(format='[%(lineno)03d]: %(message)s', level=logging.WARNING)
+logging.basicConfig(format='[%(lineno)03d]: %(message)s', level=logging.DEBUG)
 LOG = logging.getLogger(__name__)
 
 
@@ -38,13 +38,15 @@ def main(fh=sys.stdin):
     for case in range(1, cases + 1):
         LOG.info("Case %d", case)
         total_people, total_languages = get_ints(fh)
-        responses = get_ints(fh)
+        initial_responses = get_ints(fh)
 
-        additional_people = total_people - sum(responses)
-        responses = responses + [0]*additional_people
+        initial_people = sum(initial_responses)
+        additional_people = total_people - initial_people
+        responses = initial_responses + [0]*additional_people
         initial_percentages = [response/total_people*100 for response in responses]
         additional_percent = 1/total_people*100
 
+        LOG.info("Initial responses: %s", responses)
         LOG.info("Initial percentages: %s", initial_percentages)
         LOG.info("Addition people (percent per person): %d (%2.2f%%)", additional_people, additional_percent)
 
@@ -57,9 +59,10 @@ def main(fh=sys.stdin):
                     additional_responses[pos] = i
                     break
         if not additional_responses:
-            # We couldn't make any number round up, just add all people to one response
-            LOG.debug("Just adding all people to the first response")
-            additional_responses[0] = additional_people
+            # We couldn't make any number round up, let the extra people have one language each
+            LOG.debug("Can't be improved, appending the additional people to the end")
+            for i in range(len(initial_responses), len(responses)):
+                additional_responses[i] = 1
 
         LOG.info("Additional responses: %s", additional_responses)
 
