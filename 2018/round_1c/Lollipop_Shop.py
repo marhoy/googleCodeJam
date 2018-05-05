@@ -33,9 +33,8 @@ def main(fh=sys.stdin):
     for case in range(1, cases + 1):
 
         customers = get_int(fh)
-        lolipops = {i for i in range(customers)}
+        lollipops = {i for i in range(customers)}
         counts = {}
-        LOG.debug("Awaiting %d customers", customers)
 
         for customer in range(customers):
             num_flavors, *likes = get_ints(fh)
@@ -53,15 +52,15 @@ def main(fh=sys.stdin):
 
             # Customer likes one thing. Sell it if we have it.
             if num_flavors == 1:
-                if likes[0] in lolipops:
+                if likes[0] in lollipops:
                     print(likes[0], flush=True)
-                    lolipops.remove(likes[0])
+                    lollipops.remove(likes[0])
                 else:
                     print("-1", flush=True)
                 continue
 
-            # Customer likes several things. Sell the least common one of the ones we have.
-            possibilities = lolipops.intersection(list(likes))
+            # Customer likes several things. Sell the least popular one of the ones we have.
+            possibilities = lollipops.intersection(likes)
             LOG.debug("Possible sells: %s", possibilities)
             if not possibilities:
                 # We didn't have any of them.
@@ -70,7 +69,7 @@ def main(fh=sys.stdin):
             for flavor in sorted(counts, key=counts.get):
                 if flavor in possibilities:
                     print(flavor, flush=True)
-                    lolipops.remove(flavor)
+                    lollipops.remove(flavor)
                     break
 
 

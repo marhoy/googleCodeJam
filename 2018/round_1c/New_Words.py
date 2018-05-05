@@ -35,8 +35,7 @@ def main(fo=sys.stdin):
         words = set()
         num_words, word_length = get_ints(fo)
         for i in range(num_words):
-            word = get_string(fo)
-            words.add(word)
+            words.add(get_string(fo))
 
         LOG.debug("Case #%d: Words: %s", case, words)
 
@@ -44,13 +43,12 @@ def main(fo=sys.stdin):
         for i in range(word_length):
             letters.append({word[i] for word in words})
 
+        solution = "-"
         for chars in itertools.product(*letters):
             word = ''.join(chars)
             if word not in words:
                 solution = word
                 break
-            else:
-                solution = "-"
 
         print('Case #{}: {}'.format(case, solution))
 
