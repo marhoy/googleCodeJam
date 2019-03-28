@@ -1,6 +1,6 @@
 import logging
 import argparse
-import sys
+import fileinput
 
 # Configure logging
 logging.basicConfig(format='[%(lineno)03d]: %(message)s', level=logging.WARNING)
@@ -27,7 +27,7 @@ def get_string(fo):
     return string
 
 
-def main(fo=sys.stdin):
+def main(fo):
     cases = get_int(fo)
 
     for case in range(1, cases + 1):
@@ -52,7 +52,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Code Jam solution')
     parser.add_argument('-v', '--verbose', action='count',
                         help="Increase verbosity. Can be repeated up to two times.")
-    parser.add_argument('-f', '--file', action='store',
+    parser.add_argument('inputfile', nargs='?',
                         help="Read from file instead of stdin")
     arguments = parser.parse_args()
 
@@ -67,8 +67,5 @@ if __name__ == '__main__':
     LOG.debug("Finished parsing arguments: %s", arguments)
 
     # Run main(), with either a file or stdin as input source
-    if arguments.file is not None:
-        with open(arguments.file) as file:
-            main(fo=file)
-    else:
-        main()
+    with fileinput.input(arguments.inputfile) as file:
+        main(file)
