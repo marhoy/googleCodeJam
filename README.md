@@ -17,7 +17,7 @@ source ./venvCJ/bin/activate
 # Upgrade pip to latest version to solve ssl issues
 curl https://bootstrap.pypa.io/get-pip.py | python
 
-# Upgrade setuptools to newest version
+# Upgrade setuptools to latest version
 pip install -U setuptools
 
 # Install numpy and scipy
