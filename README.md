@@ -14,7 +14,7 @@ The Google environment is running 64-bit Debian 9.8 (stretch). For Python 3, thi
 python3.5 -m venv venvCJ
 source ./venvCJ/bin/activate
 
-# Upgrade pip to newer version to solve ssl issues
+# Upgrade pip to latest version to solve ssl issues
 curl https://bootstrap.pypa.io/get-pip.py | python
 
 # Upgrade setuptools to newest version
