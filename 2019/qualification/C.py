@@ -36,7 +36,7 @@ def pairwise(iterable):
     return zip(a, b)
 
 
-def prime_list(numbers):
+def prime_list_old(numbers):
     # Reconstruct the list of prime numbers
     primes = []
     for a, b in pairwise(numbers):
@@ -45,11 +45,32 @@ def prime_list(numbers):
         else:
             primes.append(math.gcd(a, b))
 
-    # Add the first number
+    # Add the first prime
     primes.insert(0, int(numbers[0] / primes[0]))
 
-    # Add last number
+    # Add last prime
     primes.append(int(numbers[-1] / primes[-1]))
+
+    return primes
+
+
+def prime_list(numbers):
+    primes = [0]
+    for i, (a, b) in enumerate(pairwise(numbers)):
+        if a == b:
+            primes.append(0)
+            continue
+        first_prime = math.gcd(a, b)
+        primes.append(first_prime)
+        break
+
+    # Calculate the rest of the primes by division
+    for j in range(i+1, len(numbers)):
+        primes.append(int(numbers[j]/primes[j]))
+
+    # Backtrack for the beginning of the list
+    for j in range(i, -1, -1):
+        primes[j] = int(numbers[j]/primes[j+1])
 
     return primes
 
@@ -67,7 +88,8 @@ def main(fo):
         # Make a set with all the unique primes
         primes_seen = set(list_of_primes)
 
-        print("Number of unique primes:", len(primes_seen))
+        # print("Number of primes:", len(primes_seen))
+        # print(primes_seen)
 
         # Create a map from prime to character
         import string
