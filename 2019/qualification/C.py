@@ -1,7 +1,8 @@
 import logging
 import argparse
 import fileinput
-from functools import lru_cache
+from itertools import tee
+import math
 
 # Configure logging
 logging.basicConfig(format='[%(lineno)03d]: %(message)s', level=logging.WARNING)
@@ -28,43 +29,29 @@ def get_string(fo):
     return string
 
 
-@lru_cache()
-def factors(n):
-    """
-    Returns all factors of n not including 1 and n
-    """
-    from functools import reduce
-
-    return set(reduce(list.__add__,
-                      ([i, n // i] for i in range(1, int(n ** 0.5) + 1) if
-                       n % i == 0))) - {1, n}
+def pairwise(iterable):
+    """s -> (s0,s1), (s1,s2), (s2, s3), ..."""
+    a, b = tee(iterable)
+    next(b, None)
+    return zip(a, b)
 
 
-def list_from_pairs(prime_pairs):
-    primes_list = []
-    for i in range(len(prime_pairs)):
-        if i == 0:
-            # The first element is treated differently
-            first = (prime_pairs[0] - prime_pairs[1])
-            # The set was empty, because the same letter was repeated
-            if not first:
-                first = prime_pairs[0]
-            primes_list.append(list(first)[0])
+def prime_list(numbers):
+    # Reconstruct the list of prime numbers
+    primes = []
+    for a, b in pairwise(numbers):
+        if a == b:
+            primes.append(int(math.sqrt(a)))
         else:
-            j = i - 1
-            common = prime_pairs[i].intersection(prime_pairs[j])
-            if not common:
-                common = prime_pairs[i]
-            primes_list.append(list(common)[0])
+            primes.append(math.gcd(a, b))
 
-    # The last element is also special
-    last = prime_pairs[-1] - prime_pairs[-2]
-    if not last:
-        # The set was empty, because the same letter was repeated
-        last = prime_pairs[-1]
-    primes_list.append(list(last)[0])
+    # Add the first number
+    primes.insert(0, int(numbers[0] / primes[0]))
 
-    return primes_list
+    # Add last number
+    primes.append(int(numbers[-1] / primes[-1]))
+
+    return primes
 
 
 def main(fo):
@@ -74,16 +61,13 @@ def main(fo):
         N, L = get_ints(fo)
         numbers = get_ints(fo)
 
-        # Get the list of the prime pairs
-        prime_pairs = [factors(n) for n in numbers]
-
-        # Turn the pair-list into a list of primes (one for each character)
-        primes_list = list_from_pairs(prime_pairs)
+        # Reconstruct the list of primes
+        list_of_primes = prime_list(numbers)
 
         # Make a set with all the unique primes
-        primes_seen = set()
-        for a in prime_pairs:
-            primes_seen.update(a)
+        primes_seen = set(list_of_primes)
+
+        print("Number of unique primes:", len(primes_seen))
 
         # Create a map from prime to character
         import string
@@ -92,7 +76,7 @@ def main(fo):
             prime_to_c[prime] = letter
 
         # Decrypt the message
-        message = ''.join([prime_to_c[prime] for prime in primes_list])
+        message = ''.join([prime_to_c[prime] for prime in list_of_primes])
 
         print('Case #{}: {}'.format(case, message))
 
