@@ -26,6 +26,11 @@ def get_string(fo):
     string = fo.readline().strip()
     return string
 
+# Idea: Start by setting A = N.
+# If N contains 4 at the 1'th position, we want to subtract 1 from A.
+# If N contains 4 at the 10'th position, we want to subtract 10 from A.
+# Finally, calculate B as the difference between N and the new number A.
+
 
 def main(fo):
     cases = get_int(fo)

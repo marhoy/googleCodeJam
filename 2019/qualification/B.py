@@ -43,7 +43,8 @@ def move_pos(pos, direction):
 # Observation: If Lydias last move is an E, we need to stay above her track in order to
 # avoid being boxed in. In that case, we want to move E until we hit the border, and then
 # move S towards the corner. But we will sometimes we forced to move S if we're on Lydias
-# track and she moved E.
+# track and she moved E. But her last move is E, so at some point she will have to
+# go S, and then we can go E to get above her.
 
 def main(fo):
     cases = get_int(fo)
