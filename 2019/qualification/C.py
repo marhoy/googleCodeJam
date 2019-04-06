@@ -36,24 +36,6 @@ def pairwise(iterable):
     return zip(a, b)
 
 
-def prime_list_old(numbers):
-    # Reconstruct the list of prime numbers
-    primes = []
-    for a, b in pairwise(numbers):
-        if a == b:
-            primes.append(int(math.sqrt(a)))
-        else:
-            primes.append(math.gcd(a, b))
-
-    # Add the first prime
-    primes.insert(0, int(numbers[0] / primes[0]))
-
-    # Add last prime
-    primes.append(int(numbers[-1] / primes[-1]))
-
-    return primes
-
-
 def prime_list(numbers):
     primes = [0]
     for i, (a, b) in enumerate(pairwise(numbers)):
@@ -73,6 +55,13 @@ def prime_list(numbers):
         primes[j] = int(numbers[j]/primes[j+1])
 
     return primes
+
+# Idea:
+# 1. It is sufficient to find a prime in the beginning of the list. The rest of the
+#    primes can be calculated by division.
+# 2. If the first two numbers are the same, continue until you find two unequal numbers.
+#    Find the first prime by taking the greatest common divisor of those two numbers.
+# 3. Calculate the beginning of the list by dividing in the other direction.
 
 
 def main(fo):
