@@ -1,6 +1,10 @@
 import argparse
+import functools
 import logging
 import sys
+
+# Redefine the print function with flush=True. Needed for interactive problems.
+print = functools.partial(print, flush=True)
 
 # Configure logging
 logging.basicConfig(format='[%(lineno)03d]: %(message)s', level=logging.WARNING)
@@ -31,7 +35,6 @@ def main():
     cases = get_int()
 
     for case in range(1, cases + 1):
-
         # Your solution goes here
 
         print('Case #{}:'.format(case))
