@@ -78,3 +78,22 @@ def factors(n: int) -> set:
     return set(reduce(list.__add__,
                       ([i, n // i] for i in range(1, int(n ** 0.5) + 1) if
                        n % i == 0))) - {1, n}
+
+
+def transpose_list_of_strings(list_of_strings):
+    """
+    Transposes the input which is a list (iterable) of strings:
+    Input: ['00001111', '00110011', '01010101']
+    Output: ['000', '001', '010', '011', '100', '101', '110', '111']
+    """
+    return [''.join(digits) for digits in zip(*list_of_strings)]
+
+
+def transpose_list_of_lists(list_of_lists):
+    """
+    Transposes the input which is a list (iterable) of lists:
+    Input: t = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    Output: [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+    """
+    return [[*digits] for digits in zip(*list_of_lists)]
+
