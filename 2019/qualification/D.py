@@ -71,7 +71,7 @@ def main():
         # For the machines that work, we get back the same columns we sent.
         # So converting the columns to numbers, we would get 0..N if all machines worked
         # and we had enough bits. Remember that if N was > 31, the numbers flipped over.
-        # So in N = 35 and machine 30 and 32 is broken, we get 0..29 31 1..2.
+        # So if N = 35 and machine 30 and 32 is broken, we get 0..29 31 1..2.
         ids_recv = [int(s, 2) for s in transpose_list_of_strings(responses)]
 
         broken_ids = [i for i in range(N) if i not in ids_recv]
