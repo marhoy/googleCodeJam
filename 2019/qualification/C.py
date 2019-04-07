@@ -1,8 +1,8 @@
-import logging
 import argparse
 import fileinput
-from itertools import tee
+import logging
 import math
+from itertools import tee
 
 # Configure logging
 logging.basicConfig(format='[%(lineno)03d]: %(message)s', level=logging.WARNING)
@@ -48,11 +48,11 @@ def prime_list(numbers):
 
     # Calculate the rest of the primes by division
     for j in range(i+1, len(numbers)):
-        primes.append(int(numbers[j]/primes[j]))
+        primes.append(numbers[j] // primes[j])
 
     # Backtrack for the beginning of the list
     for j in range(i, -1, -1):
-        primes[j] = int(numbers[j]/primes[j+1])
+        primes[j] = numbers[j] // primes[j+1]
 
     return primes
 
@@ -65,6 +65,8 @@ def prime_list(numbers):
 
 
 def main(fo):
+    import string
+
     cases = get_int(fo)
 
     for case in range(1, cases + 1):
@@ -81,10 +83,8 @@ def main(fo):
         # print(primes_seen)
 
         # Create a map from prime to character
-        import string
-        prime_to_c = dict()
-        for letter, prime in zip(string.ascii_uppercase, sorted(list(primes_seen))):
-            prime_to_c[prime] = letter
+        prime_to_c = {prime: char for char, prime in
+                      zip(string.ascii_uppercase, sorted(list(primes_seen)))}
 
         # Decrypt the message
         message = ''.join([prime_to_c[prime] for prime in list_of_primes])
