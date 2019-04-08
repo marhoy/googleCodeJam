@@ -65,7 +65,7 @@ def main():
         # the value will just flip over: 0..31 0..2.
         # If N <= 16, we will send less than 5 test_strings.
         test_strings = transpose(
-            [bin(i)[2:].zfill(bits_needed)[-5:] for i in range(N)])
+            [bin(i)[2:].zfill(bits_needed)[-bits_needed:] for i in range(N)])
 
         # Send the test strings and store the received strings
         responses = []
