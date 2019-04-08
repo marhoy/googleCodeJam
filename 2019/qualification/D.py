@@ -13,6 +13,7 @@ LOG = logging.getLogger(__name__)
 
 def get_int():
     string = FILE.readline().strip()
+    LOG.debug("Reading from file: %s", string)
     return int(string)
 
 
@@ -31,7 +32,7 @@ def get_string():
     return string
 
 
-def transpose_list_of_strings(list_of_strings):
+def transpose(list_of_strings):
     """
     Transposes the input which is a list (iterable) of strings:
     Input: ['00001111', '00110011', '01010101']
@@ -42,6 +43,10 @@ def transpose_list_of_strings(list_of_strings):
 
 def main():
     import math
+
+    # Note: To test this manually, you can say:
+    # python interactive_runner.py python testing_tool.py 0 -- python D.py
+    # You can optionally add a -v or -vv to turn on info/debug messages
 
     cases = get_int()
 
@@ -59,7 +64,7 @@ def main():
         # bits. We just discard any of the more significant bits. So for e.g. N = 35,
         # the value will just flip over: 0..31 0..2.
         # If N <= 16, we will send less than 5 test_strings.
-        test_strings = transpose_list_of_strings(
+        test_strings = transpose(
             [bin(i)[2:].zfill(bits_needed)[-5:] for i in range(N)])
 
         # Send the test strings and store the received strings
@@ -72,11 +77,21 @@ def main():
         # So converting the columns to numbers, we would get 0..N if all machines worked
         # and we had enough bits. Remember that if N was > 31, the numbers flipped over.
         # So if N = 35 and machine 30 and 32 is broken, we get 0..29 31 1..2.
-        ids_recv = [int(s, 2) for s in transpose_list_of_strings(responses)]
+        ids_recv = [int(s, 2) for s in transpose(responses)]
 
-        broken_ids = [i for i in range(N) if i not in ids_recv]
+        # Now, we go through the numbers we received and transform them into numbers from 0 to N.
+        # We need to keep track of which block we are in.
+        machines_working = []
+        block = 0
+        for i, d in enumerate(ids_recv):
+            if i > 0 and d <= ids_recv[i - 1]:
+                block += 1
+            machines_working.append(block * 2 ** bits_needed + d)
+
+        broken_ids = [i for i in range(N) if i not in machines_working]
 
         LOG.debug("IDs received: {}".format(ids_recv))
+        LOG.debug("Machines working: {}".format(machines_working))
         LOG.info("Broken IDs: {}".format(broken_ids))
 
         # Send solution

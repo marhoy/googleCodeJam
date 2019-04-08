@@ -1,3 +1,8 @@
+import math
+from itertools import starmap
+from operator import mul
+
+
 def ccw(a, b, c):
     """
     Each point a, b, c is a point in 2D represented by two coordinates (x, y).
@@ -67,6 +72,80 @@ def convex_hull(points):
     return hull
 
 
+def hull_area(points):
+    """
+    This function calculates the area of a hull, where the hull is described as a ordered polygon.
+    The output from the "convex_hull(points)" should be well suited.
+
+    The formula does not work if the points are not ordered.
+    https://en.wikipedia.org/wiki/Shoelace_formula
+    """
+    n = len(points)
+    area = 0.0
+    for i in range(n):
+        j = (i + 1) % n
+        area += points[i][0] * points[j][1]
+        area -= points[j][0] * points[i][1]
+    area = abs(area) / 2.0
+    return area
+
+
+def matrix_mul(A, B):
+    """
+    Matrix multiplication of two matrices A and B.
+    The matrices are expressed as lists of lists, such that
+
+    A = [[0, 1], [2, 3], [4, 5]
+
+    corresponds to the matrix
+
+         0  1
+    A =  2  3
+         4  5
+    """
+    return [[sum(starmap(mul, zip(row, col))) for col in zip(*B)] for row in A]
+
+
+def rotation_matrix(roll, pitch, yaw):
+    """
+    This function returns a rotational matrix R, which can be used to rotate some points in 3D.
+    The roll, pitch and yaw angle is specified in radians.
+
+    For some points in a matrix A, the rotated points A' can them be calculated as:
+    A' = matrix_mul(A, R)
+    """
+
+    def roll_matrix(angle):
+        """
+        Rotate around the
+        """
+        R = [
+            [1, 0, 0],
+            [0, math.cos(angle), -math.sin(angle)],
+            [0, math.sin(angle), math.cos(angle)]
+        ]
+        return R
+
+    def pitch_matrix(angle):
+        R = [
+            [math.cos(angle), 0, math.sin(angle)],
+            [0, 1, 0],
+            [-math.sin(angle), 0, math.cos(angle)]
+        ]
+        return R
+
+    def yaw_matrix(angle):
+        R = [
+            [math.cos(angle), -math.sin(angle), 0],
+            [math.sin(angle), math.cos(angle), 0],
+            [0, 0, 1]
+        ]
+        return R
+
+    R = matrix_mul(matrix_mul(yaw_matrix(yaw), pitch_matrix(pitch)), roll_matrix(roll))
+    return R
+
+
 def factors(n: int) -> set:
     """
     Returns all unique factors of an integer n, not including 1 and n.
@@ -80,20 +159,16 @@ def factors(n: int) -> set:
                        n % i == 0))) - {1, n}
 
 
-def transpose_list_of_strings(list_of_strings):
+def transpose(list_of_interables):
     """
-    Transposes the input which is a list (iterable) of strings:
+    Transposes the input which is a list of iterable:
     Input: ['00001111', '00110011', '01010101']
     Output: ['000', '001', '010', '011', '100', '101', '110', '111']
-    """
-    return [''.join(digits) for digits in zip(*list_of_strings)]
 
-
-def transpose_list_of_lists(list_of_lists):
-    """
-    Transposes the input which is a list (iterable) of lists:
     Input: t = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     Output: [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
     """
-    return [[*digits] for digits in zip(*list_of_lists)]
-
+    if isinstance(list_of_interables[0], str):
+        return [''.join(digits) for digits in zip(*list_of_interables)]
+    if isinstance(list_of_interables[0], (list, tuple)):
+        return [[*digits] for digits in zip(*list_of_interables)]

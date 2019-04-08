@@ -14,7 +14,8 @@ def getints():
 
 
 def init_field(area):
-    # Make a list of all coordinates inside the smallest possible rectangle with area >= requested_area
+    # Make a list of all coordinates inside the smallest possible
+    # rectangle with area >= requested_area
     field = list()
     i_max = int(math.ceil(math.sqrt(area)))
     j_max = int(math.ceil(area / i_max))
@@ -41,7 +42,7 @@ def find_target_cell(field, i_max, j_max):
     LOG.debug("Getting target cell %d from %s", n, str(field))
     i, j = field[n]
 
-    # If the target is along the edge, subtract one
+    # If the target is along the edge, move one cell towards the center.
     # By doing it this way, we fill in the edges "by mistake" (when Gopher digs in the wrong cell
     i = max(i, 2)
     i = min(i, i_max - 1)
