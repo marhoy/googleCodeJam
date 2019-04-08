@@ -74,8 +74,8 @@ def convex_hull(points):
 
 def hull_area(points):
     """
-    This function calculates the area of a hull, where the hull is described as a ordered polygon.
-    The output from the "convex_hull(points)" should be well suited.
+    This function calculates the area of a hull, where the hull is described as an
+    ordered polygon. The output from the "convex_hull(points)" should be well suited.
 
     The formula does not work if the points are not ordered.
     https://en.wikipedia.org/wiki/Shoelace_formula
