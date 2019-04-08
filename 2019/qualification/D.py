@@ -54,7 +54,7 @@ def main():
         # Your solution goes here
         N, B, F = get_ints()
 
-        bits_needed = math.ceil(math.log2(N))
+        bits_needed = min(5, math.ceil(math.log2(N)))
 
         LOG.info("Case #%d: Testing N=%d machines (B=%d), using F=%d queries",
                  case, N, B, bits_needed)
