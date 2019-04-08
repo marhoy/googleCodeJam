@@ -146,20 +146,7 @@ def rotation_matrix(roll, pitch, yaw):
     return R
 
 
-def factors(n: int) -> set:
-    """
-    Returns all unique factors of an integer n, not including 1 and n.
-    So for a prime number, it will return an empty set.
-    For 9, it will return {3}
-    """
-    from functools import reduce
-
-    return set(reduce(list.__add__,
-                      ([i, n // i] for i in range(1, int(n ** 0.5) + 1) if
-                       n % i == 0))) - {1, n}
-
-
-def transpose(list_of_interables):
+def transpose(list_of_iterables):
     """
     Transposes the input which is a list of iterable:
     Input: ['00001111', '00110011', '01010101']
@@ -168,7 +155,33 @@ def transpose(list_of_interables):
     Input: t = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     Output: [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
     """
-    if isinstance(list_of_interables[0], str):
-        return [''.join(digits) for digits in zip(*list_of_interables)]
-    if isinstance(list_of_interables[0], (list, tuple)):
-        return [[*digits] for digits in zip(*list_of_interables)]
+    if isinstance(list_of_iterables[0], str):
+        return [''.join(digits) for digits in zip(*list_of_iterables)]
+    if isinstance(list_of_iterables[0], (list, tuple)):
+        return [[*digits] for digits in zip(*list_of_iterables)]
+
+
+def factors(n: int) -> set:
+    """
+    Returns all unique factors of an integer n, not including 1 and n.
+    So for a prime number, it will return an empty set.
+    For 9, it will return {3}
+    """
+    from functools import reduce
+    return set(reduce(list.__add__,
+                      ([i, n // i] for i in range(1, int(n ** 0.5) + 1) if
+                       n % i == 0))) - {1, n}
+
+
+def primes_up_to(n: int) -> list:
+    """
+    Returns all prime numbers that are <= n
+    """
+    out = list()
+    sieve = [True] * (n+1)
+    for p in range(2, n+1):
+        if (sieve[p]):
+            out.append(p)
+            for i in range(p, n+1, p):
+                sieve[i] = False
+    return out

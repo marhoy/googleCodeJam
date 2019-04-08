@@ -13,7 +13,6 @@ LOG = logging.getLogger(__name__)
 
 def get_int():
     string = FILE.readline().strip()
-    LOG.debug("Reading from file: %s", string)
     return int(string)
 
 
@@ -44,28 +43,38 @@ def transpose(list_of_strings):
 def main():
     import math
 
-    # Note: To test this manually, you can say:
+    # Note: To test this locally, you would say:
+    #
     # python interactive_runner.py python testing_tool.py 0 -- python D.py
-    # You can optionally add a -v or -vv to turn on info/debug messages
+    #
+    # You can optionally add -v or -vv at the end to turn on info/debug messages
 
     cases = get_int()
 
+    LOG.debug("Solving %i cases", cases)
+
     for case in range(1, cases + 1):
-        # Your solution goes here
         N, B, F = get_ints()
 
-        bits_needed = min(5, math.ceil(math.log2(N)))
+        # After changing to the strategy of repeated-blocks-of-numbers, we only have
+        # to require that the block size is larger than the number of broken machines.
+        # If it wasn't, all machines in a block could be broken, and we wouldn't be
+        # able to detect that a new block begins.
+        # Since the maximum value for B is 15, we will never send more than 4 queries.
+        bits_needed = math.ceil(math.log2(B + 1))
 
-        LOG.info("Case #%d: Testing N=%d machines (B=%d), using F=%d queries",
-                 case, N, B, bits_needed)
+        LOG.info("Case #%d: Testing N=%i machines (B=%i, F=%i), using only %i queries",
+                 case, N, B, F, bits_needed)
 
-        # Make test strings such that the columns correspond to the binary numbers
-        # from 0 to N. We can maximally ask 5 times, so we cannot use more than 5
-        # bits. We just discard any of the more significant bits. So for e.g. N = 35,
-        # the value will just flip over: 0..31 0..2.
-        # If N <= 16, we will send less than 5 test_strings.
+        # Make test strings such that the columns correspond to increasing binary numbers.
+        # We are only going to ask "bits_needed" times (max 4), so we cannot
+        # use more than "bits_needed" bits. We handle this by just discarding any
+        # of the more significant bits.
+        # So for e.g. N = 17 and 4 bits the values will just flip over: 0..15 0..2.
         test_strings = transpose(
             [bin(i)[2:].zfill(bits_needed)[-bits_needed:] for i in range(N)])
+
+        LOG.debug("Will send the following test strings %s", test_strings)
 
         # Send the test strings and store the received strings
         responses = []
@@ -73,28 +82,31 @@ def main():
             print(test_string)
             responses.append(get_string())
 
-        # For the machines that work, we get back the same columns we sent.
-        # So converting the columns to numbers, we would get 0..N if all machines worked
-        # and we had enough bits. Remember that if N was > 31, the numbers flipped over.
+        LOG.debug("Received the following response strings %s", responses)
+
+        # For the machines that work, we get back the same columns that we sent.
+        # So converting the received columns to numbers, we would get 0..N if all
+        # machines worked and we had used enough bits.
+        # But now, some of the columns (numbers) will be missing.
         # So if N = 35 and machine 30 and 32 is broken, we get 0..29 31 1..2.
         ids_recv = [int(s, 2) for s in transpose(responses)]
 
-        # Now, we go through the numbers we received and transform them into numbers from 0 to N.
-        # We need to keep track of which block we are in.
-        machines_working = []
-        block = 0
+        # Now, we go through the numbers we received and transform them into
+        # numbers from 0 to N. We need to keep track of which block we are in.
+        block, machines_working = 0, []
         for i, d in enumerate(ids_recv):
             if i > 0 and d <= ids_recv[i - 1]:
                 block += 1
             machines_working.append(block * 2 ** bits_needed + d)
 
+        # Finally, the IDs of the broken machines are the numbers we did not receive
         broken_ids = [i for i in range(N) if i not in machines_working]
 
-        LOG.debug("IDs received: {}".format(ids_recv))
+        LOG.debug("IDs received: %s", ids_recv)
         LOG.debug("Machines working: {}".format(machines_working))
         LOG.info("Broken IDs: {}".format(broken_ids))
 
-        # Send solution
+        # Send solution and receive verdict
         print(' '.join(map(str, broken_ids)))
         verdict = get_int()
 
