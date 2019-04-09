@@ -51,7 +51,7 @@ def main():
 
     cases = get_int()
 
-    LOG.debug("Solving %i cases", cases)
+    LOG.info("Solving %i cases", cases)
 
     for case in range(1, cases + 1):
         N, B, F = get_ints()
