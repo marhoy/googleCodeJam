@@ -61,6 +61,39 @@ def lines_intersect(a, b, c, d):
     return True
 
 
+def point_in_polygon(point, polygon):
+    """Check whether a point is inside a polygon
+
+    This implements a fast version of the winding number calculation,
+    described here: http://geomalgorithms.com/a03-_inclusion.html
+
+    Args:
+        point: A point in 2D represented by coordinates (x, y)
+        polygon: A list of points that make up the edges of the polygon.
+
+    Returns:
+        True if the point is inside the polygon
+    """
+    # We need the polygon to be closed
+    if not polygon[-1] == polygon[0]:
+        polygon.append(polygon[0])
+
+    winding_number = 0
+    for edge in zip(polygon, polygon[1:]):
+        # if edge crosses ray upwards and point is strictly left of edge
+        if (edge[0][1] <= point[1] < edge[1][1])  \
+                and (ccw(edge[0], point, edge[1]) < 0):
+            winding_number += 1
+
+        # if edge crosses ray downwards and point is strictly right of edge
+        elif (edge[0][1] > point[1] >= edge[1][1]) \
+                and (ccw(edge[0], point, edge[1]) > 0):
+            winding_number -= 1
+
+    # If winding number is 0, then point is outside the polygon
+    return winding_number != 0
+
+
 def convex_hull(points):
     """
     Given a list of points in 2D with coordinates (x, y).
