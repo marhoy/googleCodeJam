@@ -3,6 +3,28 @@ from itertools import starmap
 from operator import mul
 
 
+def binary_search(sorted_list, item):
+    """Binary search a sorted list for an item.
+
+    The function returns:
+    - If the item is in the list: The index of the item
+    - If the item is not in the list: None
+    """
+    low = 0
+    high = len(sorted_list) - 1
+
+    while low <= high:
+        mid = math.floor((low + high) / 2)
+        guess = sorted_list[mid]
+        if guess == item:
+            return mid
+        if guess > item:
+            high = mid - 1
+        else:
+            low = mid + 1
+    return None
+
+
 def ccw(a, b, c):
     """Check if a turn is counter-clockwise
 
