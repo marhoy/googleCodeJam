@@ -4,9 +4,10 @@ from operator import mul
 
 
 def ccw(a, b, c):
-    """
+    """Check if a turn is counter-clockwise
+
     Each point a, b, c is a point in 2D represented by two coordinates (x, y).
-    This function determines whether the turn from a->b to b->c is counter-clockwise.
+    Determines whether the turn from a->b to b->c is counter-clockwise.
 
     The function returns:
      > 0: If the turn is counter-clockwise
@@ -54,28 +55,32 @@ def convex_hull(points):
     points = sorted(points)
     leftmost = points[0]
 
-    # Sort the other points in increasing slope (y/x) from the lower leftmost point
-    others = sorted(points[1:], key=lambda p: (p[1] - leftmost[1])/(p[0] - leftmost[0]))
+    # Sort the other points in increasing slope (y/x) relative to the
+    # lower leftmost point
+    others = sorted(points[1:],
+                    key=lambda p: (p[1] - leftmost[1]) / (p[0] - leftmost[0]))
     points = [leftmost] + others
 
     # Start from the leftmost point and work through all points.
     hull = []
-    for p in points:
+    for point in points:
         # If we have to turn clockwise to reach this new point:
         #   pop points from the stack until we don't
         # else
         #   append this new point to the stack
-        while len(hull) >= 2 and ccw(hull[-2], hull[-1], p) < 0:
+        while len(hull) >= 2 and ccw(hull[-2], hull[-1], point) < 0:
             hull.pop()
-        hull.append(p)
+        hull.append(point)
 
     return hull
 
 
 def hull_area(points):
-    """
-    This function calculates the area of a hull, where the hull is described as an
-    ordered polygon. The output from the "convex_hull(points)" should be well suited.
+    """Calculate the area of a hull
+
+    This function calculates the area of a hull, where the hull is described
+    as an ordered polygon. The output from the "convex_hull(points)" should
+    be well suited.
 
     The formula does not work if the points are not ordered.
     https://en.wikipedia.org/wiki/Shoelace_formula
@@ -90,7 +95,7 @@ def hull_area(points):
     return area
 
 
-def matrix_mul(A, B):
+def matrix_mul(a, b):
     """
     Matrix multiplication of two matrices A and B.
     The matrices are expressed as lists of lists, such that
@@ -103,15 +108,17 @@ def matrix_mul(A, B):
     A =  2  3
          4  5
     """
-    return [[sum(starmap(mul, zip(row, col))) for col in zip(*B)] for row in A]
+    return [[sum(starmap(mul, zip(row, col))) for col in zip(*b)] for row in a]
 
 
 def rotation_matrix(roll, pitch, yaw):
-    """
-    This function returns a rotational matrix R, which can be used to rotate some points in 3D.
-    The roll, pitch and yaw angle is specified in radians.
+    """Calculate rotation matrix
 
-    For some points in a matrix A, the rotated points A' can them be calculated as:
+    This function returns a rotational matrix R, which can be used to rotate
+    some points in 3D. The roll, pitch and yaw angle is specified in radians.
+
+    For some points in a matrix A, the rotated points A' can them be
+    calculated as:
     A' = matrix_mul(A, R)
     """
 
@@ -119,31 +126,33 @@ def rotation_matrix(roll, pitch, yaw):
         """
         Rotate around the
         """
-        R = [
+        r = [
             [1, 0, 0],
             [0, math.cos(angle), -math.sin(angle)],
             [0, math.sin(angle), math.cos(angle)]
         ]
-        return R
+        return r
 
     def pitch_matrix(angle):
-        R = [
+        r = [
             [math.cos(angle), 0, math.sin(angle)],
             [0, 1, 0],
             [-math.sin(angle), 0, math.cos(angle)]
         ]
-        return R
+        return r
 
     def yaw_matrix(angle):
-        R = [
+        r = [
             [math.cos(angle), -math.sin(angle), 0],
             [math.sin(angle), math.cos(angle), 0],
             [0, 0, 1]
         ]
-        return R
+        return r
 
-    R = matrix_mul(matrix_mul(yaw_matrix(yaw), pitch_matrix(pitch)), roll_matrix(roll))
-    return R
+    rotation = matrix_mul(matrix_mul(yaw_matrix(yaw),
+                                     pitch_matrix(pitch)),
+                          roll_matrix(roll))
+    return rotation
 
 
 def transpose(list_of_iterables):
@@ -178,10 +187,10 @@ def primes_up_to(n: int) -> list:
     Returns all prime numbers that are <= n
     """
     out = list()
-    sieve = [True] * (n+1)
-    for p in range(2, n+1):
-        if (sieve[p]):
+    sieve = [True] * (n + 1)
+    for p in range(2, n + 1):
+        if sieve[p]:
             out.append(p)
-            for i in range(p, n+1, p):
+            for i in range(p, n + 1, p):
                 sieve[i] = False
     return out
