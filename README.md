@@ -8,16 +8,16 @@ The Google environment is running 64-bit Debian 9.8 (stretch). For Python 3, thi
  - scipy 1.2.1
 
 ## For Mac OS X:
-- Download and install Python 3.5.3
 ```bash
-# Create and activate a virtual environment
-python3.5 -m venv venvCJ
-source ./venvCJ/bin/activate
+# Install Python 3.5.3
+pyenv install 3.5.3
 
-# Upgrade pip to latest version to solve ssl issues
-curl https://bootstrap.pypa.io/get-pip.py | python
+# Create a virtual environment
+pyenv virtualenv 3.5.3 GoogleCJ
+pyenv activate GoogleCJ
 
-# Upgrade setuptools to latest version
+# Upgrade pip and setuptools to latest versions
+pip install -U pip
 pip install -U setuptools
 
 # Install numpy and scipy
