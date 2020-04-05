@@ -26,7 +26,7 @@ def binary_search(sorted_list, item):
 
 
 def ccw(a, b, c):
-    """Check if a turn is counter-clockwise
+    """Check if a turn is counter-clockwise.
 
     Each point a, b, c is a point in 2D represented by two coordinates (x, y).
     Determines whether the turn from a->b to b->c is counter-clockwise.
@@ -42,11 +42,12 @@ def ccw(a, b, c):
 
 
 def lines_intersect(a, b, c, d):
-    """
+    """Check whether line a-b intersects line c-d.
+
     Each point a, b, c is a point in 2D represented by two coordinates (x, y).
     This function determines whether the line a-b intersects the line c-d.
-    The intersection is not proper if e.g. point c is on the line a-b, or if the
-    four points form a single line.
+    The intersection is not proper if e.g. point c is on the line a-b, or if
+    the four points form a single line.
 
     The function returns:
      True: If the lines intersect
@@ -62,7 +63,7 @@ def lines_intersect(a, b, c, d):
 
 
 def point_in_polygon(point, polygon):
-    """Check whether a point is inside a polygon
+    """Check whether a point is inside a polygon.
 
     This implements a fast version of the winding number calculation,
     described here: http://geomalgorithms.com/a03-_inclusion.html
@@ -95,7 +96,8 @@ def point_in_polygon(point, polygon):
 
 
 def convex_hull(points):
-    """
+    """Return points on the convex hull.
+
     Given a list of points in 2D with coordinates (x, y).
     This function finds the points that make up the convex hull.
 
@@ -131,7 +133,7 @@ def convex_hull(points):
 
 
 def hull_area(points):
-    """Calculate the area of a hull
+    """Calculate the area of a hull.
 
     This function calculates the area of a hull, where the hull is described
     as an ordered polygon. The output from the "convex_hull(points)" should
@@ -151,8 +153,8 @@ def hull_area(points):
 
 
 def matrix_mul(a, b):
-    """
-    Matrix multiplication of two matrices A and B.
+    """Matrix multiplication of two matrices A and B.
+
     The matrices are expressed as lists of lists, such that
 
     A = [[0, 1], [2, 3], [4, 5]
@@ -167,7 +169,7 @@ def matrix_mul(a, b):
 
 
 def rotation_matrix(roll, pitch, yaw):
-    """Calculate rotation matrix
+    """Calculate rotation matrix.
 
     This function returns a rotational matrix R, which can be used to rotate
     some points in 3D. The roll, pitch and yaw angle is specified in radians.
@@ -178,9 +180,6 @@ def rotation_matrix(roll, pitch, yaw):
     """
 
     def roll_matrix(angle):
-        """
-        Rotate around the
-        """
         r = [
             [1, 0, 0],
             [0, math.cos(angle), -math.sin(angle)],
@@ -211,7 +210,8 @@ def rotation_matrix(roll, pitch, yaw):
 
 
 def transpose(list_of_iterables):
-    """
+    """Transpose a matrix (iterable of iterable).
+
     Transposes the input which is a list of iterable:
     Input: ['00001111', '00110011', '01010101']
     Output: ['000', '001', '010', '011', '100', '101', '110', '111']
@@ -226,7 +226,8 @@ def transpose(list_of_iterables):
 
 
 def factors(n: int) -> set:
-    """
+    """Factorize an integer.
+
     Returns all unique factors of an integer n, not including 1 and n.
     So for a prime number, it will return an empty set.
     For 9, it will return {3}
@@ -238,9 +239,7 @@ def factors(n: int) -> set:
 
 
 def primes_up_to(n: int) -> list:
-    """
-    Returns all prime numbers that are <= n
-    """
+    """Returns all prime numbers that are <= n."""
     out = list()
     sieve = [True] * (n + 1)
     for p in range(2, n + 1):
