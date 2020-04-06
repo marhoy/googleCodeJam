@@ -1,6 +1,7 @@
 import math
 from itertools import starmap
 from operator import mul
+from typing import List, Set
 
 
 def binary_search(sorted_list, item):
@@ -73,7 +74,20 @@ def point_in_polygon(point, polygon):
         polygon: A list of points that make up the edges of the polygon.
 
     Returns:
-        True if the point is inside the polygon
+        True if the point is inside the polygon.
+        Points on the bottom and left edges counts as being inside,
+        upper and right edge counts as outside.
+
+    Examples:
+        >>> polygon = [(0, 0), (0, 1), (1, 1), (1, 0)]
+        >>> utils.point_in_polygon((0, 0.5), polygon)
+        True
+        >>> utils.point_in_polygon((0.5, 0), polygon)
+        True
+        >>> utils.point_in_polygon((1, 0.5), polygon)
+        False
+        >>> utils.point_in_polygon((.5, 1), polygon)
+        False
     """
     # We need the polygon to be closed
     if not polygon[-1] == polygon[0]:
@@ -225,22 +239,33 @@ def transpose(list_of_iterables):
         return [[*digits] for digits in zip(*list_of_iterables)]
 
 
-def factors(n: int) -> set:
+def factors(n: int) -> Set[int]:
     """Factorize an integer.
 
-    Returns all unique factors of an integer n, not including 1 and n.
-    So for a prime number, it will return an empty set.
+    Returns all unique factors of an integer n, NOT including 1 and n.
     For 9, it will return {3}
+
+    Args:
+        n (int): The number to factories
+
+    Returns:
+        set: A set with the factors of n.
+
+    Examples:
+        >>> utils.factors(11)
+        set()
+        >>> utils.factors(12)
+        {2, 3, 4, 6}
     """
     results = set()
     for i in range(1, int(math.sqrt(n)) + 1):
         if n % i == 0:
             results.add(i)
             results.add(n // i)
-    return results
+    return results - {1, n}
 
 
-def primes_up_to(n: int) -> list:
+def primes_up_to(n: int) -> List[int]:
     """Returns all prime numbers that are <= n."""
     out = list()
     sieve = [True] * (n + 1)
