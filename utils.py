@@ -232,10 +232,12 @@ def factors(n: int) -> set:
     So for a prime number, it will return an empty set.
     For 9, it will return {3}
     """
-    from functools import reduce
-    return set(reduce(list.__add__,
-                      ([i, n // i] for i in range(1, int(n ** 0.5) + 1) if
-                       n % i == 0))) - {1, n}
+    results = set()
+    for i in range(1, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            results.add(i)
+            results.add(n // i)
+    return results
 
 
 def primes_up_to(n: int) -> list:
