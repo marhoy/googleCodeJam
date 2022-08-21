@@ -1,0 +1,201 @@
+INFO: Qualification_A_Pancakes(45): Number of cases 100
+INFO: Qualification_A_Pancakes(49): Case #1: Problem: ---+-++-, K: 3
+Case #1: 3
+INFO: Qualification_A_Pancakes(49): Case #2: Problem: +++++, K: 4
+Case #2: 0
+INFO: Qualification_A_Pancakes(49): Case #3: Problem: -+-+-, K: 4
+Case #3: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #4: Problem: +---, K: 2
+Case #4: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #5: Problem: --+--++-+, K: 3
+Case #5: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #6: Problem: +++++++-, K: 7
+Case #6: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #7: Problem: +-+-+-+, K: 3
+Case #7: 3
+INFO: Qualification_A_Pancakes(49): Case #8: Problem: ++++, K: 3
+Case #8: 0
+INFO: Qualification_A_Pancakes(49): Case #9: Problem: -+-+, K: 3
+Case #9: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #10: Problem: +-+-+-+-, K: 3
+Case #10: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #11: Problem: -----, K: 4
+Case #11: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #12: Problem: +-+-+-+-+, K: 3
+Case #12: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #13: Problem: +--+, K: 2
+Case #13: 1
+INFO: Qualification_A_Pancakes(49): Case #14: Problem: -++-, K: 2
+Case #14: 3
+INFO: Qualification_A_Pancakes(49): Case #15: Problem: +-----+, K: 2
+Case #15: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #16: Problem: -+-, K: 3
+Case #16: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #17: Problem: -----, K: 5
+Case #17: 1
+INFO: Qualification_A_Pancakes(49): Case #18: Problem: ++--, K: 2
+Case #18: 1
+INFO: Qualification_A_Pancakes(49): Case #19: Problem: --, K: 2
+Case #19: 1
+INFO: Qualification_A_Pancakes(49): Case #20: Problem: --++-, K: 2
+Case #20: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #21: Problem: -+-+-+-+-+, K: 2
+Case #21: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #22: Problem: +---, K: 3
+Case #22: 1
+INFO: Qualification_A_Pancakes(49): Case #23: Problem: --+--++-, K: 5
+Case #23: 3
+INFO: Qualification_A_Pancakes(49): Case #24: Problem: -++++++++-, K: 10
+Case #24: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #25: Problem: +-+, K: 3
+Case #25: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #26: Problem: +++, K: 2
+Case #26: 0
+INFO: Qualification_A_Pancakes(49): Case #27: Problem: ----------, K: 2
+Case #27: 5
+INFO: Qualification_A_Pancakes(49): Case #28: Problem: -+, K: 2
+Case #28: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #29: Problem: ---, K: 2
+Case #29: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #30: Problem: --++, K: 2
+Case #30: 1
+INFO: Qualification_A_Pancakes(49): Case #31: Problem: ++-, K: 3
+Case #31: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #32: Problem: ----------, K: 10
+Case #32: 1
+INFO: Qualification_A_Pancakes(49): Case #33: Problem: +-+-+-+-+-, K: 3
+Case #33: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #34: Problem: +-+++, K: 2
+Case #34: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #35: Problem: +-++, K: 2
+Case #35: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #36: Problem: ----+++, K: 2
+Case #36: 12
+INFO: Qualification_A_Pancakes(49): Case #37: Problem: -+++, K: 2
+Case #37: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #38: Problem: +--+, K: 3
+Case #38: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #39: Problem: --+, K: 3
+Case #39: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #40: Problem: -+++++++--, K: 2
+Case #40: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #41: Problem: ------, K: 6
+Case #41: 1
+INFO: Qualification_A_Pancakes(49): Case #42: Problem: -+--, K: 3
+Case #42: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #43: Problem: -+-+++-+-, K: 6
+Case #43: 4
+INFO: Qualification_A_Pancakes(49): Case #44: Problem: -+---+-, K: 5
+Case #44: 3
+INFO: Qualification_A_Pancakes(49): Case #45: Problem: -+--, K: 2
+Case #45: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #46: Problem: -++++++++-, K: 8
+Case #46: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #47: Problem: ++--, K: 3
+Case #47: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #48: Problem: -+++++++-+, K: 2
+Case #48: 10
+INFO: Qualification_A_Pancakes(49): Case #49: Problem: +++, K: 3
+Case #49: 0
+INFO: Qualification_A_Pancakes(49): Case #50: Problem: -++, K: 3
+Case #50: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #51: Problem: -+++, K: 3
+Case #51: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #52: Problem: ----------, K: 3
+Case #52: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #53: Problem: +-++-+++, K: 3
+Case #53: 2
+INFO: Qualification_A_Pancakes(49): Case #54: Problem: -++++++++-, K: 9
+Case #54: 2
+INFO: Qualification_A_Pancakes(49): Case #55: Problem: +++-, K: 2
+Case #55: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #56: Problem: +--, K: 2
+Case #56: 1
+INFO: Qualification_A_Pancakes(49): Case #57: Problem: --+++, K: 2
+Case #57: 1
+INFO: Qualification_A_Pancakes(49): Case #58: Problem: ----, K: 2
+Case #58: 2
+INFO: Qualification_A_Pancakes(49): Case #59: Problem: +++-, K: 3
+Case #59: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #60: Problem: ---------, K: 3
+Case #60: 3
+INFO: Qualification_A_Pancakes(49): Case #61: Problem: ++-, K: 2
+Case #61: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #62: Problem: ----, K: 3
+Case #62: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #63: Problem: --+-, K: 3
+Case #63: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #64: Problem: ---------, K: 9
+Case #64: 1
+INFO: Qualification_A_Pancakes(49): Case #65: Problem: --------, K: 8
+Case #65: 1
+INFO: Qualification_A_Pancakes(49): Case #66: Problem: ++--++--, K: 4
+Case #66: 2
+INFO: Qualification_A_Pancakes(49): Case #67: Problem: +++--+-, K: 4
+Case #67: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #68: Problem: ++-+, K: 3
+Case #68: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #69: Problem: +-+-, K: 2
+Case #69: 2
+INFO: Qualification_A_Pancakes(49): Case #70: Problem: ++-+, K: 2
+Case #70: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #71: Problem: -++++++++-, K: 2
+Case #71: 9
+INFO: Qualification_A_Pancakes(49): Case #72: Problem: +++++++, K: 7
+Case #72: 0
+INFO: Qualification_A_Pancakes(49): Case #73: Problem: +-+-+-+-+-, K: 2
+Case #73: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #74: Problem: --+-, K: 2
+Case #74: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #75: Problem: +--, K: 3
+Case #75: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #76: Problem: ++++, K: 2
+Case #76: 0
+INFO: Qualification_A_Pancakes(49): Case #77: Problem: ++++++++, K: 5
+Case #77: 0
+INFO: Qualification_A_Pancakes(49): Case #78: Problem: -+---+---, K: 4
+Case #78: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #79: Problem: -+-+, K: 2
+Case #79: 2
+INFO: Qualification_A_Pancakes(49): Case #80: Problem: ++, K: 2
+Case #80: 0
+INFO: Qualification_A_Pancakes(49): Case #81: Problem: ---, K: 3
+Case #81: 1
+INFO: Qualification_A_Pancakes(49): Case #82: Problem: +-+, K: 2
+Case #82: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #83: Problem: --++, K: 3
+Case #83: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #84: Problem: --+++-+, K: 5
+Case #84: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #85: Problem: ----------, K: 5
+Case #85: 2
+INFO: Qualification_A_Pancakes(49): Case #86: Problem: -+++++++++, K: 2
+Case #86: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #87: Problem: -++-, K: 3
+Case #87: 2
+INFO: Qualification_A_Pancakes(49): Case #88: Problem: +-++, K: 3
+Case #88: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #89: Problem: --+, K: 2
+Case #89: 1
+INFO: Qualification_A_Pancakes(49): Case #90: Problem: +-, K: 2
+Case #90: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #91: Problem: ++----+, K: 4
+Case #91: 1
+INFO: Qualification_A_Pancakes(49): Case #92: Problem: +-+-, K: 3
+Case #92: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #93: Problem: -+-, K: 2
+Case #93: 2
+INFO: Qualification_A_Pancakes(49): Case #94: Problem: ++++++++++, K: 10
+Case #94: 0
+INFO: Qualification_A_Pancakes(49): Case #95: Problem: -++, K: 2
+Case #95: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #96: Problem: +-++-+-++-, K: 5
+Case #96: 4
+INFO: Qualification_A_Pancakes(49): Case #97: Problem: -+-+++++, K: 2
+Case #97: 2
+INFO: Qualification_A_Pancakes(49): Case #98: Problem: ---+, K: 2
+Case #98: IMPOSSIBLE
+INFO: Qualification_A_Pancakes(49): Case #99: Problem: ---+, K: 3
+Case #99: 1
+INFO: Qualification_A_Pancakes(49): Case #100: Problem: ---++, K: 2
+Case #100: IMPOSSIBLE
